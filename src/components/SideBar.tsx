@@ -53,7 +53,7 @@ export default function SideBar({username}: {username: string}) {
         <div className="mt-16 flex gap-8 flex-col items-center justify-center w-full h-fit">
             <a
                 href="http://localhost:5174/" 
-                className='w-[90%] h-[60px] bg-green-500 hover:bg-green-600 text-center text-white px-4 py-2 rounded'
+                className='w-[90%] h-[60px] flex flex-col items-center justify-center bg-green-500 hover:bg-green-600 text-center text-white rounded'
                 onClick={() => {
                 // Handle share action
                 // alert('Share button clicked');

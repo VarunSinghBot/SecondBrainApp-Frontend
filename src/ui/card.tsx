@@ -1,4 +1,4 @@
-function card({}) {
+function card() {
   return (
     <>
         <div className="">
