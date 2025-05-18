@@ -10,6 +10,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import MainPage from './components/MainPage';
 import ErrPage from './ErrPage';
+import AddItem from './components/AddItem';
 
 function App() {
 
@@ -23,7 +24,10 @@ function App() {
     },{
       path: "/main",
       element: <MainPage/>
-    },
+    },{
+      path:"/addItem",
+      element: <AddItem/>
+    }
   ];
 
   return (

@@ -1,6 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function TopBar() {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <div className='h-full w-full flex justify-between items-center'>
@@ -11,9 +16,11 @@ export default function TopBar() {
         <div className='flex gap-4 items-center pr-4'>
             <button 
                 className='bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded'
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault
                   // Handle share action
                 //   alert('Add button clicked');
+                navigate('/addItem');
                 }}
             >Add Item
             </button>
