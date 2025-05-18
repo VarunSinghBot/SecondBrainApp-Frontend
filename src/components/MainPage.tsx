@@ -31,15 +31,15 @@ export default function MainPage() {
 
   return (
     <>
-      <div className='h-full w-full m-0 p-0 flex'>
-        <div className='w-1/5 h-full bg-gray-800'>
-            <SideBar username={username || ""} onFilter={setFilterType} />
+      <div className='h-full w-full m-0 p-0 flex bg-[#faf9f6]'>
+        <div className='w-1/5 h-full bg-[#faf9f6]'>
+            <SideBar onFilter={setFilterType} />
         </div>
-        <div className='w-4/5 h-full bg-gray-500 flex flex-col'>
-            <div className='h-[80px] bg-gray-600'>
-                <TopBar />
+        <div className='w-4/5 h-full bg-[#faf9f6] flex flex-col'>
+            <div className='h-[80px] bg-[#faf9f6]'>
+                <TopBar username={username || ""}/>
             </div>
-            <main className='h-full w-full flex flex-col justify-start items-center'>
+            <main className='h-full w-full flex flex-col justify-start items-center bg-[#faf9f6]'>
                 <Content filterType={filterType} />
             </main>
         </div>

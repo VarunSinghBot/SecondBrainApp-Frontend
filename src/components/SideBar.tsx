@@ -1,12 +1,10 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 interface SideBarProps {
-  username: string;
   onFilter?: (type: string | null) => void;
 }
 
-export default function SideBar({ username, onFilter }: SideBarProps) {
+export default function SideBar({ onFilter }: SideBarProps) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,60 +14,62 @@ export default function SideBar({ username, onFilter }: SideBarProps) {
     navigate("/login");
   };
 
+  const buttonItems = [
+    { label: "Article", type: "article" },
+    { label: "Image", type: "image" },
+    { label: "Audio", type: "audio" },
+    { label: "Video", type: "video" },
+  ];
+
   return (
     <>
-      <div className='h-full w-full flex justify-start flex-col items-center sticky'>
-        <div className='flex items-center w-full mb-10'>
-          <img src="/userLogo.jpeg" alt="Logo" className='h-10 w-10 rounded-[100%] m-4' />
-          <h1 className='text-white text-2xl pl-2'>{username}</h1>
+      <div className='h-full w-full flex justify-start flex-col items-center sticky text-black/75 bg-[#faf9f6] border border-r-[#1e1e1e40]'>
+        {/* Logo  */}
+        <div className='flex items-center justify-start w-full mb-10'>
+          <img src="/Logo.png" alt="Logo" className='h-10 w-10 rounded-md m-4' />
+          <h1 className='text-[#e1434bf0] text-2xl'><b>Second Brain App</b></h1>
         </div>
-
+        {/* <div className="w-full h-[1px] bg-[#1e1e1e40] mb-4"/> */}
+        
+        {/* Filters */}
         <div className="w-full p-4 flex justify-between">
-          <h1 className=" text-lg text-white">Filters</h1>
+          <h1 className=" text-lg ">Filters</h1>
+
+          
           <button
-            className='w-[45%] h-[40px] bg-red-500 hover:bg-red-700 text-white rounded'
+            className='w-[45%] h-[40px] text-white border border-[#1e1e1e0f] bg-[#e1434b] rounded'
             onClick={() => onFilter && onFilter(null)}
           >
-            Remove Filters
+            Reset
           </button>
+        </div>
+        
+        {/* Filter Buttons */}
+        <div className='flex gap-8 flex-col items-center justify-center w-full h-fit'>
+          {
+            buttonItems.map((item) => (
+              <button
+                key={item.type}
+                className='w-[82%] h-[52px] border border-[#1e1e1e40] bg-transparent hover:bg-[#e1434b] hover:text-white rounded'
+                onClick={() => onFilter && onFilter(item.type)}
+              >
+                {item.label}
+              </button>
+            ))
+          }
         </div>
 
-        <div className='flex gap-8 flex-col items-center justify-center w-full h-fit'>
-          <button
-            className='w-[90%] h-[60px] bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'
-            onClick={() => onFilter && onFilter("article")}
-          >
-            Article
-          </button>
-          <button
-            className='w-[90%] h-[60px] bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'
-            onClick={() => onFilter && onFilter("image")}
-          >
-            Image
-          </button>
-          <button
-            className='w-[90%] h-[60px] bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'
-            onClick={() => onFilter && onFilter("audio")}
-          >
-            Audio
-          </button>
-          <button
-            className='w-[90%] h-[60px] bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'
-            onClick={() => onFilter && onFilter("video")}
-          >
-            Video
-          </button>
-        </div>
+        {/* <div className="w-full h-[1px] bg-[#1e1e1e40] mt-4"/> */}
 
         <div className="mt-16 flex gap-8 flex-col items-center justify-center w-full h-fit">
           <a
             href="http://localhost:5174/"
-            className='w-[90%] h-[60px] flex flex-col items-center justify-center bg-green-500 hover:bg-green-600 text-center text-white rounded'
+            className='w-[90%] h-[60px] flex flex-col items-center justify-center bg-green-500 text-white transition-shadow duration-300 hover:border-black hover:shadow-[6px_6px_0px_0px_#00000040] text-center  rounded'
           >
             Chat
           </a>
           <button
-            className='w-[90%] h-[60px] bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded'
+            className='w-[90%] h-[60px] bg-[#e1434bf0] hover:bg-[#e1434bf0] text-white transition-shadow duration-300 hover:border-black hover:shadow-[6px_6px_0px_0px_#00000040] px-4 py-2 rounded'
             onClick={handleLogout}
           >
             Logout

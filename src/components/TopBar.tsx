@@ -1,15 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function TopBar() {
+interface userProps {
+  username: string;
+}
+
+export default function TopBar({ username }: userProps) {
 
   const navigate = useNavigate();
 
   return (
     <>
-      <div className='h-full w-full flex justify-between items-center'>
-        <div className='flex items-center'>
-          <img src="/Logo.png" alt="Logo" className='h-10 w-10 rounded-md m-4' />
-          <h1 className='text-white text-2xl pl-2'>Second Brain App</h1>
+      <div className='h-full w-full flex justify-between items-center text-black/75 border border-b-[#1e1e1e40]'>
+        {/* Profile  */}
+        <div className='flex items-center '>
+          <img src="/profile.svg" alt="Logo" className='h-10 w-10 rounded-[100%] m-4 object-cover border border-[#2b2b2b0f]' />
+          <span className="pl-2">
+            <h1 className='text-md '>{username}</h1>
+            <p className="text-sm text-[#00000080]">Hello, Welcome Back!</p>
+          </span>
         </div>
         <div className='flex gap-4 items-center pr-4'>
             <button 
@@ -32,7 +40,7 @@ export default function TopBar() {
             </button> */}
             <input 
                 type="text" 
-                className='h-10 w-64 rounded-md p-2 bg-[#ffffff40] text-white' 
+                className='h-10 w-64 rounded-md p-2 bg-[#00000040] text-white' 
                 placeholder='Search...'
                 onChange={(e) => {
                     // Handle search input change

@@ -23,6 +23,7 @@ export default function Content({ filterType }: ContentProps) {
   const [contentData, setContentData] = useState<ContentItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [deleteWarningId, setDeleteWarningId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -53,53 +54,118 @@ export default function Content({ filterType }: ContentProps) {
     fetchContent();
   }, []);
 
+  // Delete content handler
+  const handleDelete = async (id: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Unauthorized: No token found");
+      return;
+    }
+    try {
+      await axios.delete(`http://localhost:5000/api/v1/content/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setContentData((prev) => prev.filter((item) => item.id !== id));
+      setDeleteWarningId(null);
+    } catch (err: any) {
+      setError(err.response?.data?.error || "Failed to delete content");
+    }
+  };
+
   // Filter content based on filterType
   const filteredContent = filterType
     ? contentData.filter((item) => item.type === filterType)
     : contentData;
 
   return (
-    <div className="max-h-[700px] w-[90%] flex flex-col justify-start items-center ">
-      <h1 className="text-white text-3xl">Main Page</h1>
+    <div className="min-h-[700px] w-[90%] flex flex-col justify-start items-center">
+      {/* <h1 className="text-black text-3xl">Main Page</h1> */}
       {loading ? (
-        <div className="text-white text-xl mt-8">Loading...</div>
+        <div className="text-black text-xl mt-8">Loading...</div>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (
         <div className="grid grid-cols-3 gap-4 w-full h-full mt-4">
-          {filteredContent.map((item) => (
-            <div
-              key={item.id}
-              className="bg-blue-500 h-[300px] w-full rounded-md flex flex-col justify-center items-center"
-            >
-              <h1 className="text-white text-2xl">{item.title}</h1>
-              <p className="text-white text-sm">{item.body}</p>
-              <span className="text-gray-300 text-xs">{item.type}</span>
-              {/* Render mediaUrl if available */}
-              {item.mediaUrl && (
-                <a
-                  href={item.mediaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 text-blue-200 underline hover:text-blue-400"
-                >
-                  Open Media
-                </a>
-              )}
-              {/* Render tags if available */}
-              {item.tags && item.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {item.tags.map((tag) => (
-                    <span
-                      key={tag.id}
-                      className="bg-white text-blue-700 px-2 py-1 rounded text-xs"
+          {
+            filteredContent.length === 0 ? (
+              <div className="col-span-3 text-center text-gray-500 text-lg mt-8">
+                No {filterType} available
+              </div>
+            ) : (
+            filteredContent.map((item) => (
+              <main
+                key={item.id}
+                className="relative border border-[#1e1e1e40] bg-transparent h-[300px] w-full rounded-md flex flex-col justify-start items-start overflow-hidden"
+              >
+                <span className="w-full h-fit p-2 bg-[#e1434b] border-[#1e1e1e40]">
+                  <p className=" text-gray-300 text-xs">{item.type}</p>
+                </span>
+
+                {/* Render title and body */}
+                <section className="px-4 flex gap-2 flex-col mt-2">
+                  <h1 className="text-black text-2xl">{item.title}</h1>
+                  <p className="text-black text-sm">{item.body}</p>
+
+                  {/* Render mediaUrl if available */}
+                  {item.mediaUrl && (
+                    <a
+                      href={item.mediaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 text-blue-200 underline hover:text-blue-400"
                     >
-                      #{tag.tagName}
+                      Open Media
+                    </a>
+                  )}
+                  {/* Render tags if available */}
+                  {item.tags && item.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={tag.id}
+                          className="bg-white text-[#e1434b] border px-2 py-1 rounded text-xs"
+                        >
+                          #{tag.tagName}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </section>
+
+
+                {/* Delete button and warning */}
+                {deleteWarningId === item.id ? (
+                  <div className="absolute bottom-2 right-2 bg-white p-2 rounded shadow flex flex-col items-center">
+                    <span className="text-red-600 text-xs mb-2">
+                      Are you sure you want to delete?
                     </span>
-                  ))}
-                </div>
-              )}
-            </div>
+                    <div className="flex gap-2">
+                      <button
+                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        className="px-3 py-1 bg-gray-400 text-white rounded hover:bg-gray-500"
+                        onClick={() => setDeleteWarningId(null)}
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    className="absolute h-[34px] w-[34px] bottom-2 right-2 mt-4 p-2 bg-red-600 text-white rounded hover:bg-red-700"
+                    onClick={() => setDeleteWarningId(item.id)}
+                  >
+                    <img src="/bin-icon.svg" alt="Delete" className="h-full w-full"/>
+                  </button>
+                )}
+              </main>
+            )
           ))}
         </div>
       )}
