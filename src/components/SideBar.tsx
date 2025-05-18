@@ -33,7 +33,7 @@ export default function SideBar({ onFilter }: SideBarProps) {
         
         {/* Filters */}
         <div className="w-full p-4 flex justify-between">
-          <h1 className=" text-lg ">Filters</h1>
+          <h1 className="text-lg w-full flex items-center justify-start"><b>Filter</b></h1>
 
           
           <button
@@ -58,22 +58,26 @@ export default function SideBar({ onFilter }: SideBarProps) {
             ))
           }
         </div>
+        
+        {/* line  */}
+        <div className="mt-8 w-full h-[1px] bg-[#1e1e1e40]"/>
+          
+        <div className="mt-8 flex gap-8 flex-col items-center justify-center w-full h-fit">
 
-        {/* <div className="w-full h-[1px] bg-[#1e1e1e40] mt-4"/> */}
-
-        <div className="mt-16 flex gap-8 flex-col items-center justify-center w-full h-fit">
           <a
             href="http://localhost:5174/"
-            className='w-[90%] h-[60px] flex flex-col items-center justify-center bg-green-500 text-white transition-shadow duration-300 hover:border-black hover:shadow-[6px_6px_0px_0px_#00000040] text-center  rounded'
+            className='w-[90%] h-[60px] flex flex-col items-center justify-center border border-green-500 text-green-500 bg-white hover:bg-green-500/25 transition-shadow duration-300 hover:shadow-[6px_6px_0px_0px_#00000080] text-center  rounded'
           >
             Chat
           </a>
+
           <button
-            className='w-[90%] h-[60px] bg-[#e1434bf0] hover:bg-[#e1434bf0] text-white transition-shadow duration-300 hover:border-black hover:shadow-[6px_6px_0px_0px_#00000040] px-4 py-2 rounded'
+            className='w-[90%] h-[60px] bg-[#e1434b] hover:bg-[#e1434b] text-white transition-shadow duration-300 hover:border-black hover:shadow-[6px_6px_0px_0px_#00000080] px-4 py-2 rounded'
             onClick={handleLogout}
           >
             Logout
           </button>
+          
         </div>
       </div>
     </>

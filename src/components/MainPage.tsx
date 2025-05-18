@@ -31,7 +31,7 @@ export default function MainPage() {
 
   return (
     <>
-      <div className='h-full w-full m-0 p-0 flex bg-[#faf9f6]'>
+      <div className='h-full w-full m-0 p-0 flex bg-[#faf9f6] border overflow-x-hidden '>
         <div className='w-1/5 h-full bg-[#faf9f6]'>
             <SideBar onFilter={setFilterType} />
         </div>

@@ -21,7 +21,7 @@ export default function TopBar({ username }: userProps) {
         </div>
         <div className='flex gap-4 items-center pr-4'>
             <button 
-                className='bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded'
+                className='hover:bg-green-500/25 border border-green-500 text-green-500 px-4 py-2 rounded'
                 onClick={(e) => {
                   e.preventDefault
                   // Handle share action
@@ -38,14 +38,15 @@ export default function TopBar({ username }: userProps) {
                 }}
             >Delete
             </button> */}
+
             <input 
                 type="text" 
-                className='h-10 w-64 rounded-md p-2 bg-[#00000040] text-white' 
+                className='h-10 w-64 rounded-md p-2 border bg-white text-white' 
                 placeholder='Search...'
-                onChange={(e) => {
-                    // Handle search input change
-                    console.log(e.target.value);
-                }}
+                // onChange={(e) => {
+                //     Handle search input change
+                //     console.log(e.target.value);
+                // }}
             />
           <button 
             className='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'

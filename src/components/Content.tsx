@@ -80,10 +80,13 @@ export default function Content({ filterType }: ContentProps) {
     : contentData;
 
   return (
-    <div className="min-h-[700px] w-[90%] flex flex-col justify-start items-center">
+    <div className="w-[90%] flex flex-col justify-start items-center pb-4">
       {/* <h1 className="text-black text-3xl">Main Page</h1> */}
       {loading ? (
-        <div className="text-black text-xl mt-8">Loading...</div>
+        <div className="flex flex-col items-center justify-center w-full h-[600px]">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#e1434b] border-opacity-70 mb-4"/>
+          <span className="text-[#e1434b] text-xl font-semibold">Loading...</span>
+        </div>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (

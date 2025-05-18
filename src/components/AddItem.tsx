@@ -112,6 +112,9 @@ export default function AddItem() {
         <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
           Add Item
         </button>
+        <button onClick={()=>navigate("/main")} className="border border-[#e1434b] text-[#e1434b] hover:text-white p-2 rounded hover:bg-[#e1434b]">
+          Return
+        </button>
       </form>
     </div>
   );
