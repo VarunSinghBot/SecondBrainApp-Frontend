@@ -18,7 +18,7 @@ export default function SideBar({ username, onFilter }: SideBarProps) {
 
   return (
     <>
-      <div className='h-full w-full flex justify-start flex-col items-center'>
+      <div className='h-full w-full flex justify-start flex-col items-center sticky'>
         <div className='flex items-center w-full mb-10'>
           <img src="/userLogo.jpeg" alt="Logo" className='h-10 w-10 rounded-[100%] m-4' />
           <h1 className='text-white text-2xl pl-2'>{username}</h1>
