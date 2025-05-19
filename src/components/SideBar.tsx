@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 interface SideBarProps {
   onFilter?: (type: string | null) => void;
@@ -8,6 +9,18 @@ export default function SideBar({ onFilter }: SideBarProps) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    toast.success("Logged-out successfully!", {
+      style: {
+        border: "1px solid #ffffff",
+        padding: "16px",
+        color: "#000000",
+      },
+      iconTheme: {
+        primary: "#e1434b",
+        secondary: "#ffffff",
+      },
+    });
+    // Clear localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     // If you use Redux for auth, also dispatch a logout action here
@@ -23,7 +36,9 @@ export default function SideBar({ onFilter }: SideBarProps) {
 
   return (
     <>
-      <div className='h-full w-full flex justify-start flex-col items-center sticky text-black/75 bg-[#faf9f6] border border-r-[#1e1e1e40]'>
+      <Toaster position="bottom-right" reverseOrder={true}/>
+      <div className='relative h-full w-full flex justify-start flex-col items-center text-black/75 bg-[#faf9f6] border border-r-[#1e1e1e40]'>
+        
         {/* Logo  */}
         <div className='flex items-center justify-start w-full mb-10'>
           <img src="/Logo.png" alt="Logo" className='h-10 w-10 rounded-md m-4' />

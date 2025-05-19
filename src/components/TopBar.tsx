@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface userProps {
   username: string;
@@ -50,8 +51,29 @@ export default function TopBar({ username }: userProps) {
     setLoadingShare(false);
   };
 
+  const copyToClipboard = async ({ shareLink }: { shareLink: string }) => {
+    try {
+      await navigator.clipboard.writeText(shareLink);
+      toast.success("Text copied to clipboard!",{
+        style: {
+        border: '1px solid #ffffff',
+        padding: '16px',
+        color: '#000000',
+      },
+      iconTheme: {
+        primary: '#000000',
+        secondary: '#FFFAEE',
+      }
+    });
+    } catch (err) {
+      toast.error("Couldn't copy text");
+      console.error("Failed to copy: ", err);
+    }
+  };
+
   return (
     <div className='h-full w-full flex justify-between items-center text-black/75 border border-b-[#1e1e1e40]'>
+      <Toaster position="bottom-right" reverseOrder={true}/>
       {/* Profile  */}
       <div className='flex flex-[.20] items-center '>
         <img src="/profile.svg" alt="Logo" className='h-10 w-10 rounded-[100%] m-4 object-cover border border-[#2b2b2b0f]' />
@@ -126,7 +148,7 @@ export default function TopBar({ username }: userProps) {
                     <button
                       className="px-2 py-1 bg-[#e1434b] text-white rounded text-xs"
                       onClick={() => {
-                        navigator.clipboard.writeText(shareLink);
+                        copyToClipboard({shareLink});
                       }}
                     >
                       Copy

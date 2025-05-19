@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setAuth } from "../store/reducers/authSlice";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Login() {
 
@@ -26,14 +27,30 @@ function Login() {
       localStorage.setItem('token', token);
       localStorage.setItem('username', JSON.stringify(username));
       dispatch(setAuth({ token, username }));
+
+      toast.success("Logged-in successfully!", {
+          style: {
+            border: "1px solid #ffffff",
+            padding: "16px",
+            color: "#000000",
+          },
+          iconTheme: {
+            primary: "#e1434b",
+            secondary: "#ffffff",
+          },
+        });
+
       navigate("/main")
     } catch (error) {
       setError('Invalid email or password');
     }
+
+
   }
 
   return (
     <>
+      <Toaster position="bottom-right" reverseOrder={true}/>
       <div className='w-full h-[560px] text-black/75 rounded-lg bg-[#ffffff0f] border border-[#0000000f] flex flex-col items-center justify-start'>
         <h1 className="text-[#e1434b] text-4xl mt-12 mb-4"> <b>Login</b></h1>
 

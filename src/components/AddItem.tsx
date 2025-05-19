@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function AddItem() {
   const [title, setTitle] = useState('');
@@ -52,8 +53,22 @@ export default function AddItem() {
         setType('article');
         setTags('');
         setMediaUrl('');
+
+        toast.success("Item deleted successfully!", {
+          style: {
+            border: "1px solid #ffffff",
+            padding: "16px",
+            color: "#000000",
+          },
+          iconTheme: {
+            primary: "#00ff26",
+            secondary: "#ffffff",
+          },
+        });
+
         navigate("/main");
       }
+
     } catch (err: any) {
       setError(err.response?.data?.error || 'Failed to add item');
     }
@@ -63,21 +78,23 @@ export default function AddItem() {
     <div className='relative flex items-center justify-center min-h-[100dvh] h-fit p-4  bg-[#d9d9d9]'>
       
       <video
-    autoPlay
-    loop
-    muted
-    playsInline
-    title="Cloud background video"
-    aria-hidden="true"
-    className="absolute top-0 left-0 w-full h-full object-cover z-[1]"
-    style={{
-      WebkitMaskImage: 'linear-gradient(to bottom, #ffffff 60%, rgba(0,0,0,0) 100%)',
-      maskImage: 'linear-gradient(to bottom, #000000 60%, rgba(0,0,0,0) 100%)',
-    }}
-  >
-    <source src="/cloud-white-bg.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+        autoPlay
+        loop
+        muted
+        playsInline
+        title="Cloud background video"
+        aria-hidden="true"
+        className="absolute top-0 left-0 w-full h-full object-cover z-[1]"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, #ffffff 60%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, #000000 60%, rgba(0,0,0,0) 100%)',
+        }}
+      >
+        <source src="/cloud-white-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <Toaster position="bottom-right" reverseOrder={true}/>
+      {/* Gradient overlay */}
   {/* Black mask at the bottom */}
   <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t dark:from-black to-transparent"/>
 

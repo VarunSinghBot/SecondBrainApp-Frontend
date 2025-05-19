@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Tag {
   id: string;
@@ -69,6 +70,18 @@ export default function Content({ filterType }: ContentProps) {
       });
       setContentData((prev) => prev.filter((item) => item.id !== id));
       setDeleteWarningId(null);
+
+      toast.success("Item deleted successfully!", {
+        style: {
+          border: "1px solid #ffffff",
+          padding: "16px",
+          color: "#000000",
+        },
+        iconTheme: {
+          primary: "#ff0000",
+          secondary: "#ffffff",
+        },
+      });
     } catch (err: any) {
       setError(err.response?.data?.error || "Failed to delete content");
     }
@@ -81,6 +94,7 @@ export default function Content({ filterType }: ContentProps) {
 
   return (
     <div className="w-[90%] flex flex-col justify-start items-center pb-4">
+      <Toaster position="bottom-right" reverseOrder={true}/>
       {/* <h1 className="text-black text-3xl">Main Page</h1> */}
       {loading ? (
         <div className="flex flex-col items-center justify-center w-full h-[600px]">

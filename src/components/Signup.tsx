@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Signup() {
   const [username, setUsername] = useState<string>("");
@@ -34,6 +35,17 @@ function Signup() {
       setRePassword("");
       // Redirect to login page after successful signup
       alert("Signup successful! Please login.");
+      toast.success("Signup successful!", {
+        style: {
+          border: "1px solid #ffffff",
+          padding: "16px",
+          color: "#000000",
+        },
+        iconTheme: {
+          primary: "#e1434b",
+          secondary: "#ffffff",
+        },
+      });
       navigate("/auth/login");
     } catch (err: any) {
       setError(err.response?.data?.error || "Signup failed. Please try again.");
@@ -42,6 +54,7 @@ function Signup() {
 
   return (
     <>
+      <Toaster position="bottom-right" reverseOrder={true}/>
       <div className="w-full min-h-[480px] py-4 text-black/75 rounded-lg border border-[#0000000f] flex flex-col items-center justify-start">
         <h1 className="text-[#e1434b] text-4xl mb-4"> <b>Signup</b> </h1>
 
