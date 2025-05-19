@@ -11,15 +11,16 @@ import Signup from './components/Signup'
 import MainPage from './components/MainPage';
 import ErrPage from './ErrPage';
 import AddItem from './components/AddItem';
+import ShareView from './components/ShareView';
 
 function App() {
 
   const routes = [
     {
-      path: "/main",
+      path: "main",
       element: <MainPage/>
     },{
-      path:"/addItem",
+      path:"addItem",
       element: <AddItem/>
     }
   ];
@@ -30,11 +31,13 @@ function App() {
         <Routes>
           {/* Redirect root to /auth/login */}
           <Route path="/" element={<Navigate to="/auth/login" replace />} />
-          <Route path="/" element={<Layout />}>
+          {/* Main app layout */}
+          <Route element={<Layout />}>
             {routes.map((r, index) => (
               <Route key={index} path={r.path} element={r.element} />
             ))}
           </Route>
+          <Route path="/share/:hash" element={<ShareView />} />
           {/* Auth routes wrapped in AuthLayout */}
           <Route path="/auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
@@ -63,7 +66,7 @@ function AuthLayout() {
       <div 
         className='h-dvh w-dvw grid place-items-center m-0 p-0'
         style={{
-          background: "linear-gradient(to bottom, #fda0a0 10%, #fda0a0 0%, #fff 100%)",
+          background: "linear-gradient(to bottom, #fda0a0 0%, #fda0a0 30%, #fff 100%)",
         }}
       >
         <div className='h-full w-[90%] flex items-center justify-evenly gap-16'>

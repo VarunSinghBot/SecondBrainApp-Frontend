@@ -60,7 +60,29 @@ export default function AddItem() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className='relative flex items-center justify-center min-h-[100dvh] h-fit p-4  bg-[#d9d9d9]'>
+      
+      <video
+    autoPlay
+    loop
+    muted
+    playsInline
+    title="Cloud background video"
+    aria-hidden="true"
+    className="absolute top-0 left-0 w-full h-full object-cover z-[1]"
+    style={{
+      WebkitMaskImage: 'linear-gradient(to bottom, #ffffff 60%, rgba(0,0,0,0) 100%)',
+      maskImage: 'linear-gradient(to bottom, #000000 60%, rgba(0,0,0,0) 100%)',
+    }}
+  >
+    <source src="/cloud-white-bg.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  {/* Black mask at the bottom */}
+  <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t dark:from-black to-transparent"/>
+
+  {/* Form  */}
+    <div className="w-fit flex flex-col items-center justify-start rounded-2xl z-[2] bg-[url(/formBg.svg)] border-2 border-[#ffffff] bg-[#0b0b0b60] bg-cover bg-center h-fit py-14 px-10">
       <form onSubmit={handleSubmit} className="w-[400px] flex flex-col gap-4 p-4 bg-white rounded shadow">
         <h2 className="text-xl font-bold mb-2">Add New Item</h2>
         <input
@@ -73,7 +95,7 @@ export default function AddItem() {
         />
         <textarea
           placeholder="Body"
-          className="p-2 border rounded"
+          className="p-2 border rounded min-h-[140px]"
           value={body}
           onChange={e => setBody(e.target.value)}
           required
@@ -116,6 +138,7 @@ export default function AddItem() {
           Return
         </button>
       </form>
+    </div>
     </div>
   );
 }

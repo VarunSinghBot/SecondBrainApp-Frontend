@@ -11,7 +11,7 @@ export default function SideBar({ onFilter }: SideBarProps) {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     // If you use Redux for auth, also dispatch a logout action here
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   const buttonItems = [
@@ -66,6 +66,7 @@ export default function SideBar({ onFilter }: SideBarProps) {
 
           <a
             href="http://localhost:5174/"
+            target="_blank"
             className='w-[90%] h-[60px] flex flex-col items-center justify-center border border-green-500 text-green-500 bg-white hover:bg-green-500/25 transition-shadow duration-300 hover:shadow-[6px_6px_0px_0px_#00000080] text-center  rounded'
           >
             Chat
